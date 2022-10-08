@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: sans-serif;
+    background-color: powderblue;
+}
+
+/* Book */
+.book {
+    position: relative;
+    height: 90vh;
+
+    width:30vw;
+    transition: transform 0.5s;
+}
+@media screen and (max-width:550px) {
+    .book{
+    width: 95vw;
+    }
+}
+
+.paper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    perspective: 2600px;
+
+}
+.page1Clip{
+    clip-path: polygon(3% 57%, 98% 57%, 98% 78%, 3% 78%);
+    position: absolute;
+width: 96.5%;
+height: 98%;
+top:2px;
+left:5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.page1Clip:hover{
+    opacity: 1;
+}
+.page1Clip video{
+    position: relative;
+    top:135px;
+    width:100%;
+}
+.front,
+.back {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: left;
+    transition: transform 0.5s;
+
+    box-shadow: 3px 3px 10px black;
+}
+
+.front {
+    z-index: 1;
+    backface-visibility: hidden;
+    border-left: 3px solid powderblue;
+}
+
+.back {
+    z-index: 0;
+}
+img{
+    /* height:50vh; */
+/* width: 100%; */
+max-height: 100%;
+}
+.front-content,
+.back-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-content {
+    transform: rotateY(180deg);
+
+
+}
+
+/* Paper flip effect */
+.flipped .front,
+.flipped .back {
+    transform: rotateY(-180deg);
+    /* left:-120px;
+    width: 50px; */
+    /* perspective: 100px !important; */
+}
+#prev-btn{
+    position: absolute;
+    left:45%;
+}
+/* Controller Buttons */
+button {
+    position: absolute;
+    left:50%;
+    top:0px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.5s;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover i {
+    color: #636363;
+}
+
+i {
+    font-size: 50px;
+    color: gray;
+}
+
+/* Paper stack order */
+#p1 {
+    z-index: 4;
+}
+
+#p2 {
+    z-index: 2;
+}
+
+#p3 {
+    z-index: 1;
+}
