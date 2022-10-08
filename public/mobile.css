@@ -11,14 +11,14 @@ body {
     align-items: center;
     overflow: hidden;
     font-family: sans-serif;
-    background-color:cyan;
+    background-color:rgb(55, 55, 55);
 }
 
 /* Book */
 .book {
     position: relative;
-    height: 70vh;
-
+    min-height: 70vh;
+/* height: 80vw; */
     width:100vw;
     transition: transform 0.5s;
 }
@@ -106,7 +106,7 @@ max-height: 100%;
 }
 #prev-btn{
     position: absolute;
-    left:45%;
+    left:35%;
 }
 /* Controller Buttons */
 button {
