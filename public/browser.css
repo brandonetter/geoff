@@ -3,7 +3,79 @@
     padding: 0;
     box-sizing: border-box;
 }
+#closeModal{
+    position: absolute;
+    left: 0px;
+    top:0px;
+    width: 100px;
+    height: 100px;
+    background-color: #636363;
+    color:antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal{
+    display: none;
+    position:fixed;
+    justify-content: center;
+    align-content: center;
+    z-index: 130;
+    top:0px;
+    left:0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(9, 9, 9, 0.8);
+}
+.modal-content{
+    margin-top:5%;
+    text-align: center;
 
+    width: 100%;
+    height: 100%;
+}
+
+.playButton2{
+    position: relative;
+    width: 10vh;
+    height: 10vh;
+    left:65%;
+    top: 8%;
+    opacity: 0.3;
+    z-index: 120;
+    transition: opacity 0.7s;
+    pointer-events: auto;
+    animation: pulseVideo 3s infinite;
+}
+@keyframes pulseVideo {
+  0%   { opacity:0.6; }
+  50%  { opacity:0.3; }
+  100% { opacity:0.6; }
+}
+@keyframes solidVideo {
+    0% {opacity: 0.6;}
+    100% {opacity: 1;}
+
+}
+.playButton1{
+    position: relative;
+    width: 10vh;
+    height: 10vh;
+    left:40%;
+    top: 60%;
+    opacity: 0.3;
+    z-index: 120;
+    transition: opacity 0.7s;
+    pointer-events: auto;
+}
+.playButton1:hover{
+    opacity: 1.0;
+}
+
+.playButton2:hover{
+    opacity: 1.0;
+    animation: solidVideo 0.4s;
+}
 body {
     height: 100vh;
     display: flex;
@@ -11,7 +83,9 @@ body {
     align-items: center;
     overflow: hidden;
     font-family: sans-serif;
-    background-color: powderblue;
+    background-image: url("./comicBackground.png");
+    background-repeat: repeat-y;
+    background-size: 100% auto;
 }
 
 /* Book */
@@ -35,6 +109,7 @@ body {
     top: 0;
     left: 0;
     perspective: 2600px;
+    pointer-events: none;
 
 }
 .page1Clip{
@@ -75,7 +150,7 @@ left:5px;
 .front {
     z-index: 1;
     backface-visibility: hidden;
-    border-left: 3px solid powderblue;
+    border-left: 3px solid rgb(50, 50, 50);
 }
 
 .back {
@@ -85,7 +160,14 @@ img{
     /* height:50vh; */
 /* width: 100%; */
 max-height: 100%;
+position: relative;
 }
+.pageContent{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
 .front-content,
 .back-content {
     width: 100%;
@@ -122,6 +204,7 @@ button {
     background-color: transparent;
     cursor: pointer;
     margin: 10px;
+    z-index: 100;
     transition: transform 0.5s;
 }
 

@@ -28,8 +28,12 @@ for (let i = 0; i < pageCount; i++) {
 }
 const pageData = [];
 pageData.push("<img src='1.jpg' />");
-pageData.push("<img src='2.jpg' />");
-pageData.push("<img src='3.jpg' />");
+pageData.push(
+  "<img src='2.jpg' /><div class='pageContent'><img id='play1' class='playButton1' src='./playbutton.png' /></div>"
+);
+pageData.push(
+  "<img src='3.jpg' /><div class='pageContent'><img id='play2' class='playButton2' src='./playbutton.png' /></div>"
+);
 pageData.push("<img src='4.jpg' />");
 pageData.push("<img src='5.jpg' />");
 pageData.push("<img src='1.jpg' />");
@@ -51,7 +55,9 @@ pageOrder.push(
 if (isMobile()) {
   for (let i in pageOrder) {
     if (i % 2 == 1) {
-      document.getElementById(pageOrder[i]).innerHTML = "";
+      document.getElementById(pageOrder[i]).innerHTML = pageData[0];
+
+      document.getElementById(pageOrder[i]).classList.add("backfaceForMobile");
     } else {
       document.getElementById(pageOrder[i]).innerHTML = pageData.shift();
     }
@@ -81,8 +87,8 @@ let maxLocation = paper.length;
 
 function openBook() {
   if (!isMobile()) book.style.transform = "translateX(50%)";
-  prevBtn.style.transform = "translateX(-60px)";
-  nextBtn.style.transform = "translateX(60px)";
+  //prevBtn.style.transform = "translateX(-60px)";
+  // nextBtn.style.transform = "translateX(60px)";
 }
 
 function closeBook(isAtBeginning) {
@@ -102,6 +108,7 @@ function goNextPage() {
     }
 
     paper[currentLocation].classList.add("flipped");
+    paper[currentLocation].style.pointerEvents = "none";
     if (paper[currentLocation - 1]) paper[currentLocation - 1].style.zIndex = 0;
 
     currentLocation++;
@@ -130,3 +137,15 @@ function goPrevPage() {
     currentLocation--;
   }
 }
+
+document.getElementById("play1").addEventListener("click", () => {
+  document.querySelector(".modal").style.display = "block";
+});
+document.getElementById("play2").addEventListener("click", () => {
+  //
+});
+
+document.querySelector("#closeModal").addEventListener("click", () => {
+  document.querySelector(".modal").style.display = "none";
+  document.querySelector("#video1").pause();
+});
