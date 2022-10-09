@@ -22,22 +22,42 @@ const pageTemplate = (id) => {
 
 `;
 };
-let pageCount = 12;
+let pageCount = 6;
 for (let i = 0; i < pageCount; i++) {
   book.innerHTML += pageTemplate(i + 1);
 }
 const pageData = [];
 pageData.push("<img src='1.jpg' />");
 pageData.push(
-  "<img src='2.jpg' /><div class='pageContent'><img id='play1' class='playButton1' src='./playbutton.png' /></div>"
+  `<img src='2.jpg' />
+  <div id='pageContent1' class='pageContent'>
+  <div class='videoDiv'>
+  <video id="clip1" preload="auto">
+  <source src="./clip1.mp4">
+  </video><img id='play1' class='playButton1' src='./playbutton.png' />
+  </div>
+
+  </div>
+  `
 );
+{
+  /*  */
+}
 pageData.push(
   "<img src='3.jpg' /><div class='pageContent'><img id='play2' class='playButton2' src='./playbutton.png' /></div>"
 );
 pageData.push("<img src='4.jpg' />");
 pageData.push("<img src='5.jpg' />");
-pageData.push("<img src='1.jpg' />");
+pageData.push("<img src='3.jpg' />");
+
+pageData.push("<img src='7.jpg' />");
+pageData.push("<img src='8.jpg' />");
+pageData.push("<img src='4.jpg' />");
+pageData.push("<img src='5.jpg' />");
+pageData.push("<img src='3.jpg' />");
+pageData.push("<img src='10.jpg' />");
 const pageOrder = [];
+pageData.push("<img src='10.jpg' />");
 pageOrder.push(
   "f1",
   "b1",
@@ -55,7 +75,7 @@ pageOrder.push(
 if (isMobile()) {
   for (let i in pageOrder) {
     if (i % 2 == 1) {
-      document.getElementById(pageOrder[i]).innerHTML = pageData[0];
+      document.getElementById(pageOrder[i]).innerHTML = pageData[2];
 
       document.getElementById(pageOrder[i]).classList.add("backfaceForMobile");
     } else {
@@ -93,6 +113,7 @@ function openBook() {
 
 function closeBook(isAtBeginning) {
   if (isAtBeginning) {
+    paper[currentLocation - 1].style.pointerEvents = "auto";
     if (!isMobile()) book.style.transform = "translateX(0%)";
   } else {
     if (!isMobile()) book.style.transform = "translateX(100%)";
@@ -108,7 +129,9 @@ function goNextPage() {
     }
 
     paper[currentLocation].classList.add("flipped");
-    paper[currentLocation].style.pointerEvents = "none";
+    if (!isMobile()) paper[currentLocation].style.pointerEvents = "none";
+
+    //paper[currentLocation + 1].style.pointerEvents = "none";
     if (paper[currentLocation - 1]) paper[currentLocation - 1].style.zIndex = 0;
 
     currentLocation++;
@@ -137,9 +160,45 @@ function goPrevPage() {
     currentLocation--;
   }
 }
-
+document.getElementById("play1").style.cursor = "pointer";
+document.getElementById("pageContent1").addEventListener("mouseover", (e) => {
+  console.log("aa");
+});
 document.getElementById("play1").addEventListener("click", () => {
-  document.querySelector(".modal").style.display = "block";
+  // document.querySelector(".modal").style.display = "block";
+  if (!isMobile()) {
+    document.getElementById("play1").style.display = "none";
+    console.log("aa");
+    book.style.transition = "transform 1s";
+    book.style.transform += "scale(2)";
+    book.style.transform += "translateX(80%)";
+    book.style.transform += "translateY(-20%)";
+    document.getElementById("clip1").play();
+    document.getElementById("clip1").style.opacity = 1;
+    setTimeout(() => {
+      book.style.transform = "translateX(50%)";
+      book.style.transition = "transform 0.6s";
+
+      document.getElementById("play1").style.display = "block";
+      document.getElementById("clip1").style.opacity = 0;
+    }, 4500);
+  } else {
+    document.getElementById("play1").style.display = "none";
+
+    book.style.transition = "transform 1s";
+    book.style.transform += "scale(1.25)";
+    book.style.transform += "translateX(0%)";
+    book.style.transform += "translateY(-20%)";
+    document.getElementById("clip1").play();
+    document.getElementById("clip1").style.opacity = 1;
+    setTimeout(() => {
+      book.style.transform = "translateX(0%)";
+      book.style.transition = "transform 0.6s";
+
+      document.getElementById("play1").style.display = "block";
+      document.getElementById("clip1").style.opacity = 0;
+    }, 4500);
+  }
 });
 document.getElementById("play2").addEventListener("click", () => {
   //
